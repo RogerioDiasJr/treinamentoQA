@@ -1,0 +1,80 @@
+﻿﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>QA Dojo - Acesso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="login-info">
+                <h1>🥋 QA Dojo</h1>
+                <h3>Onde testadores se tornam mestres.</h3>
+                <p>
+                    Bem-vindo ao ambiente definitivo para treinamento de <strong>Automação de Testes</strong>.
+                    Este sistema foi projetado intencionalmente com desafios reais que você encontrará no mercado:
+                </p>
+                <ul style="color: #555; line-height: 1.8;">
+                    <li>IDs dinâmicos e seletores complexos.</li>
+                    <li>Elementos assíncronos e Shadow DOM.</li>
+                    <li>iFrames e manipulação de janelas.</li>
+                </ul>
+                <p>Faça login para acessar o dojo.</p>
+            </div>
+            
+            <div class="login-form-container">
+                <div class="login-header">
+                    <h2>Acesso ao Dojo</h2>
+                    <p style="font-size: 0.9rem; color: #777;">Use suas credenciais de aluno ou admin.</p>
+                </div>
+                <input type="text" id="email" placeholder="E-mail (ex: student@qadojo.com)">
+                <input type="password" id="password" placeholder="Senha">
+                <button onclick="doLogin()" style="width: 100%; margin-top: 10px;">Entrar</button>
+                <p id="error-msg" style="color: #e74c3c; text-align: center; margin-top: 10px; display: none;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Se já estiver logado, redireciona para o dashboard
+        if (localStorage.getItem('token')) {
+            window.location.href = 'dashboard.html';
+        }
+
+        async function doLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            if (!email || !password) {
+                errorMsg.innerText = "Preencha todos os campos.";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', data.user);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMsg.innerText = data.error || "Login inválido.";
+                    errorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                errorMsg.innerText = "Erro de conexão com o servidor.";
+                errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

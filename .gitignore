@@ -1,0 +1,6 @@
+node_modules/
+allure-results/
+tmp/
+test-results/
+*.sqlite
+videos/

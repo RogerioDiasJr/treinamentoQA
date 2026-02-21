@@ -143,3 +143,4 @@ qa-dojo/
 ---
 
 Desenvolvido para a comunidade de QA. 🥋 **Happy Testing!**# treinamentoQA
+# treinamentoQA

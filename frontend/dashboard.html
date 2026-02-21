@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>QA Dojo - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>🥋 Painel de Treinamento</h1>
+            <div>
+                <span id="user-display" class="user-info"></span>
+                <button onclick="logout()" class="logout-btn">Sair</button>
+            </div>
+        </div>
+        
+        <p style="font-size: 1.1rem; color: #555;">Bem-vindo ao Dojo. Escolha um desafio abaixo para aprimorar suas habilidades de automação:</p>
+        <div class="menu-grid">
+            <a href="login.html" class="card">1. Login Dinâmico (Seletores)</a>
+            <a href="products.html" class="card">2. Produtos (Sincronização)</a>
+            <a href="frames.html" class="card">3. iFrames e Janelas</a>
+            <a href="table.html" class="card">4. Tabela do Caos</a>
+            <a href="shadow.html" class="card">5. Shadow DOM</a>
+        </div>
+    </div>
+
+    <script>
+        // Proteção de Rota
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+
+        // Exibir usuário
+        document.getElementById('user-display').innerText = localStorage.getItem('user') || 'Aluno';
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

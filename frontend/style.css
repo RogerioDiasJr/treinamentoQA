@@ -1,0 +1,55 @@
+﻿body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+.container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 900px; width: 100%; box-sizing: border-box; }
+h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+.card { background: #3498db; color: white; padding: 20px; text-decoration: none; border-radius: 5px; text-align: center; transition: transform 0.2s; }
+.card:hover { transform: translateY(-5px); background: #2980b9; }
+button { background: #27ae60; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-size: 16px; }
+button:disabled { background: #bdc3c7; cursor: not-allowed; }
+input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-sizing: border-box; margin-bottom: 10px; }
+.hidden { display: none; }
+.chaos-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.chaos-table th, .chaos-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+.delete-btn { opacity: 0; transition: opacity 0.3s; background: #e74c3c; }
+tr:hover .delete-btn { opacity: 1; }
+
+/* Estilos da Landing Page / Login Real */
+.login-wrapper { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; }
+.login-info { flex: 1; min-width: 300px; }
+.login-info h1 { border: none; font-size: 2.5rem; color: #2c3e50; margin-bottom: 0.5rem; }
+.login-info p { font-size: 1.1rem; line-height: 1.6; color: #555; }
+.login-form-container { flex: 1; min-width: 300px; background: #f8f9fa; padding: 2rem; border-radius: 12px; border: 1px solid #e9ecef; }
+.login-header { text-align: center; margin-bottom: 1.5rem; }
+.login-header h2 { margin: 0; color: #3498db; }
+
+/* Header do Dashboard */
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+.user-info { font-weight: bold; color: #555; }
+.logout-btn { background: #e74c3c; font-size: 0.9rem; padding: 8px 15px; }
+
+/* Estilos para a Loja (Products) */
+.controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+.product-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s; }
+.product-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.product-card h3 { margin: 10px 0; color: #2c3e50; font-size: 1.1rem; }
+.product-card p { color: #27ae60; font-weight: bold; font-size: 1.2rem; }
+.info-box { background: #e8f6f3; border-left: 4px solid #1abc9c; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+.info-box h4 { margin-top: 0; color: #16a085; }
+
+/* Loader Animado */
+.loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Estilos Globais para a Modal */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+.modal-content { background-color: #fff; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 300px; text-align: center; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+.close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.close-btn:hover { color: #000; }
+
+/* Responsividade para Mobile */
+@media (max-width: 600px) {
+    .container { padding: 1rem; }
+    h1 { font-size: 1.5rem; }
+    .menu-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js --parallel 1 -f json:tmp/report.json && node report.js",
+    "start": "mkdir tmp && npm install package.json --save-dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cucumber/cucumber": "^12.6.0",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "allure-commandline": "^2.25.0",
+    "allure-playwright": "^2.10.0",
+    "cucumber-html-report-generator": "^1.0.33",
+    "playwright": "^1.58.2",
+    "playwright-video": "^2.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "allure-cucumberjs": "^3.0.0",
+    "chai": "^6.2.2"
+  }
+}

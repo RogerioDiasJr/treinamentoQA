@@ -1,0 +1,9 @@
+Feature: Manage shopping cart 
+    I am a consumer, would like to manage a shopping cart 
+
+
+Scenario: Add product at shopping car 
+    Given I am oline at Amazon Page
+    When I search for "Batman - O Longo Dia das Bruxas - Edição Definitiva"
+    And I add "Batman - O Longo Dia das Bruxas - Edição Definitiva" at shopping car
+    Then I should see "Batman - O Longo Dia das Bruxas - Edição Definitiva" in shopping cart 

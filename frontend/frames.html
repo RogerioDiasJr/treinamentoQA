@@ -1,0 +1,26 @@
+﻿﻿﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 3: Frames</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Labirinto de Contextos</h1>
+        
+        <div class="info-box">
+            <h4>🎯 Objetivo: Troca de Contexto (Switch)</h4>
+            <p>Elementos dentro de um <code>&lt;iframe&gt;</code> ou em uma nova aba não são visíveis imediatamente. Você deve instruir a automação a trocar o foco.</p>
+            <small>Comandos: <code>driver.switchTo().frame()</code> e <code>driver.switchTo().window()</code>.</small>
+        </div>
+
+        <h3>1. O iFrame</h3>
+        <!-- Usando srcdoc para facilitar o exemplo sem arquivos externos -->
+        <iframe srcdoc="<style>body{font-family:'Segoe UI';background:#f9f9f9;text-align:center;padding:20px;color:#555;}</style><h4>Área do iFrame</h4><p>Eu moro em outro documento HTML.</p><button onclick='alert(&quot;Clicou no iFrame!&quot;)' style='background:#e67e22;color:white;border:none;padding:10px;cursor:pointer;'>Botão do Frame</button>" width="100%" height="150px" style="border: 2px dashed #bdc3c7; border-radius: 8px;"></iframe>
+        
+        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+        <h3>2. Nova Janela</h3>
+        <p>Links com <code>target="_blank"</code> abrem novas abas. O Selenium não troca para elas automaticamente.</p>
+        <a href="index.html" target="_blank" id="new-tab-link" style="background: #9b59b6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">Abrir Política (Nova Aba)</a>
+        
+        <br><br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+</body></html>
