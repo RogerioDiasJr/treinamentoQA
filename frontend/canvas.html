@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 12: Canvas</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Assinatura Digital</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Canvas HTML5</h4>
+            <p>Desenhe na área abaixo para habilitar o botão de confirmação. Elementos Canvas não possuem DOM interno.</p>
+        </div>
+
+        <canvas id="signature-pad" width="400" height="200" class="canvas-wrapper"></canvas>
+        
+        <div style="margin-top: 10px;">
+            <button onclick="clearCanvas()" style="background: #e74c3c;">Limpar</button>
+            <button id="confirm-btn" disabled onclick="alert('Assinatura Confirmada!')">Confirmar Assinatura</button>
+        </div>
+
+        <br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        const confirmBtn = document.getElementById('confirm-btn');
+        let isDrawing = false;
+
+        // Configuração do traço
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+
+        function startPosition(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function endPosition() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+
+            // Habilita botão se desenhou
+            confirmBtn.disabled = false;
+        }
+
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', endPosition);
+        canvas.addEventListener('mousemove', draw);
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confirmBtn.disabled = true;
+        }
+    </script>
+</body></html>

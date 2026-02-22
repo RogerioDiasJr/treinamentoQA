@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 13: Infinite Scroll</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Rolagem Infinita</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Scroll Events</h4>
+            <p>Role a lista até o final para carregar mais itens. Valide se novos itens foram adicionados.</p>
+        </div>
+
+        <div id="scroll-container" class="scroll-container">
+            <!-- Itens iniciais -->
+        </div>
+        <div id="scroll-loader" class="scroll-loader">Carregando mais itens...</div>
+
+        <br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        const container = document.getElementById('scroll-container');
+        const loader = document.getElementById('scroll-loader');
+        let itemCount = 0;
+        let isLoading = false;
+
+        function addItems(count) {
+            for (let i = 0; i < count; i++) {
+                itemCount++;
+                const div = document.createElement('div');
+                div.className = 'scroll-item';
+                div.innerText = `Item da Lista #${itemCount}`;
+                container.appendChild(div);
+            }
+        }
+
+        // Inicializa com 10 itens
+        addItems(10);
+
+        container.addEventListener('scroll', () => {
+            if (container.scrollTop + container.clientHeight >= container.scrollHeight - 5 && !isLoading) {
+                isLoading = true;
+                loader.style.display = 'block';
+                
+                // Simula delay de rede
+                setTimeout(() => {
+                    addItems(10);
+                    loader.style.display = 'none';
+                    isLoading = false;
+                }, 1000);
+            }
+        });
+    </script>
+</body></html>

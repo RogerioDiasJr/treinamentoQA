@@ -26,6 +26,12 @@
     </div>
 
     <script>
+        // Proteção de Rota
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+
         const host = document.getElementById('shadow-host');
         const shadowRoot = host.attachShadow({mode: 'open'});
         shadowRoot.innerHTML = `

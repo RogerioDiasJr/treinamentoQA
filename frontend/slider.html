@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 10: Slider</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Controle Deslizante</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Interação por Coordenadas</h4>
+            <p>Arraste o slider para definir um valor específico (ex: 85).</p>
+        </div>
+
+        <div class="slider-container">
+            <label>Volume:</label>
+            <input type="range" id="volume-slider" min="0" max="100" value="0" style="width: 300px; vertical-align: middle;">
+            <span id="slider-value" class="slider-value">0</span>
+        </div>
+
+        <br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        const slider = document.getElementById('volume-slider');
+        const display = document.getElementById('slider-value');
+
+        slider.addEventListener('input', function() {
+            display.innerText = this.value;
+        });
+    </script>
+</body></html>

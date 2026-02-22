@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 9: Dropdowns</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Menus em Cascata</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Estados Dependentes</h4>
+            <p>O campo "Cidade" depende do "Estado". Aguarde o carregamento e valide a lista correta.</p>
+        </div>
+
+        <div class="dropdown-group">
+            <label>Estado:</label>
+            <select id="state-select" onchange="loadCities()">
+                <option value="">Selecione...</option>
+                <option value="SP">São Paulo</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="MG">Minas Gerais</option>
+            </select>
+        </div>
+
+        <div class="dropdown-group">
+            <label>Cidade:</label>
+            <select id="city-select" disabled>
+                <option value="">Selecione um estado primeiro...</option>
+            </select>
+        </div>
+
+        <br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        const citiesData = {
+            "SP": ["São Paulo", "Campinas", "Santos", "Sorocaba"],
+            "RJ": ["Rio de Janeiro", "Niterói", "Petrópolis"],
+            "MG": ["Belo Horizonte", "Ouro Preto", "Uberlândia"]
+        };
+
+        function loadCities() {
+            const state = document.getElementById('state-select').value;
+            const citySelect = document.getElementById('city-select');
+            
+            // Reset
+            citySelect.innerHTML = '<option value="">Carregando...</option>';
+            citySelect.disabled = true;
+
+            if (!state) {
+                citySelect.innerHTML = '<option value="">Selecione um estado primeiro...</option>';
+                return;
+            }
+
+            // Simula delay de API
+            setTimeout(() => {
+                const cities = citiesData[state];
+                citySelect.innerHTML = '<option value="">Selecione...</option>';
+                cities.forEach(city => {
+                    citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+                });
+                citySelect.disabled = false;
+            }, 1500);
+        }
+    </script>
+</body></html>

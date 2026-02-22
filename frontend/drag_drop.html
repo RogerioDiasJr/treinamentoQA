@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 6: Drag & Drop</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Kanban Board</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Actions API</h4>
+            <p>Mova o card da coluna "A Fazer" para "Feito". O card deve mudar de cor ao ser solto corretamente.</p>
+        </div>
+
+        <div class="kanban-board">
+            <div class="column" id="todo-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>A Fazer</h3>
+                <div id="card-1" class="draggable-card" draggable="true" ondragstart="drag(event)">
+                    <p><strong>Tarefa #101</strong></p>
+                    <p>Automatizar este teste.</p>
+                </div>
+            </div>
+            <div class="column" id="done-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Feito (<span id="done-count">0</span>)</h3>
+            </div>
+        </div>
+
+        <br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        // Proteção de Rota
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var draggedElement = document.getElementById(data);
+            
+            // Identifica a coluna de destino (pode ser a div da coluna ou um filho dela)
+            let target = ev.target;
+            while (!target.classList.contains('column')) {
+                target = target.parentNode;
+                if(!target) return; // Soltou fora
+            }
+
+            // Lógica de Negócio
+            if (target.id === "done-column") {
+                target.appendChild(draggedElement);
+                draggedElement.classList.add("success");
+                updateCount();
+            } else if (target.id === "todo-column") {
+                target.appendChild(draggedElement);
+                draggedElement.classList.remove("success");
+                updateCount();
+            }
+        }
+
+        function updateCount() {
+            const count = document.getElementById('done-column').querySelectorAll('.draggable-card').length;
+            document.getElementById('done-count').innerText = count;
+        }
+    </script>
+</body></html>

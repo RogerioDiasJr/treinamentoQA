@@ -23,4 +23,11 @@
         
         <br><br><a href="dashboard.html">Voltar ao Dashboard</a>
     </div>
+    <script>
+        // Proteção de Rota
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+    </script>
 </body></html>

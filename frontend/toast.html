@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 11: Toasts</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Notificações Temporárias</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Elementos Efêmeros</h4>
+            <p>Capture a mensagem antes que ela desapareça do DOM (3 segundos).</p>
+        </div>
+
+        <button onclick="showToast()" style="background: #e67e22;">Gerar Notificação</button>
+        <div id="toast-container" class="toast-container"></div>
+
+        <br><br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        function showToast() {
+            const container = document.getElementById('toast-container');
+            const id = Math.floor(Math.random() * 1000);
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast success';
+            toast.innerHTML = `
+                <div>
+                    <strong>Sucesso!</strong><br>
+                    <span>Transação #${id} realizada.</span>
+                </div>
+                <span class="toast-close" onclick="this.parentElement.remove()">&times;</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Remove do DOM após 3 segundos
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        if (toast.parentNode) toast.remove();
+                    }, 300); // Aguarda fade out
+                }
+            }, 3000);
+        }
+    </script>
+</body></html>

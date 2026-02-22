@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Desafio 8: Date Picker</title><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Calendário Customizado</h1>
+        <div class="info-box">
+            <h4>🎯 Objetivo: Widgets Complexos</h4>
+            <p>Selecione uma data futura. O campo é somente leitura, obrigando o uso do widget.</p>
+        </div>
+
+        <div class="calendar-wrapper">
+            <label>Data da Viagem:</label>
+            <input type="text" id="date-input" placeholder="DD/MM/AAAA" readonly onclick="toggleCalendar()">
+            
+            <div class="calendar-widget" id="calendar-widget">
+                <div class="calendar-header">
+                    <button onclick="changeMonth(-1)" style="padding: 5px 10px;">&lt;</button>
+                    <span id="current-month-year" style="font-weight: bold;"></span>
+                    <button onclick="changeMonth(1)" style="padding: 5px 10px;">&gt;</button>
+                </div>
+                <div class="calendar-grid" id="calendar-days">
+                    <!-- Dias gerados via JS -->
+                </div>
+            </div>
+        </div>
+
+        <br><br><br><br><br><br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        let currentDate = new Date();
+        const today = new Date();
+
+        function toggleCalendar() {
+            const widget = document.getElementById('calendar-widget');
+            widget.style.display = widget.style.display === 'block' ? 'none' : 'block';
+            renderCalendar();
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const monthYear = document.getElementById('current-month-year');
+            const daysContainer = document.getElementById('calendar-days');
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            monthYear.innerText = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(currentDate);
+            
+            daysContainer.innerHTML = '';
+            
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const lastDay = new Date(year, month + 1, 0).getDate();
+
+            // Espaços vazios
+            for (let i = 0; i < firstDayIndex; i++) {
+                const empty = document.createElement('div');
+                daysContainer.appendChild(empty);
+            }
+
+            // Dias do mês
+            for (let i = 1; i <= lastDay; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.innerText = i;
+                dayDiv.className = 'calendar-day';
+                
+                const checkDate = new Date(year, month, i);
+                
+                // Desabilitar passado
+                if (checkDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+                    dayDiv.classList.add('disabled');
+                } else {
+                    dayDiv.onclick = () => selectDate(i, month, year);
+                }
+                daysContainer.appendChild(dayDiv);
+            }
+        }
+
+        function selectDate(day, month, year) {
+            const formattedDate = `${String(day).padStart(2, '0')}/${String(month + 1).padStart(2, '0')}/${year}`;
+            document.getElementById('date-input').value = formattedDate;
+            document.getElementById('calendar-widget').style.display = 'none';
+        }
+    </script>
+</body></html>
