@@ -28,16 +28,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: qa-dojo
 
       - name: Build
         run: npm run build
+        working-directory: qa-dojo
         # Se o projeto for estático (sem build), comente a linha acima
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Indique a pasta de saída do build (ex: 'dist', 'build' ou '.')
-          path: './dist'
+          path: './qa-dojo/dist'
 
   deploy:
     environment:
