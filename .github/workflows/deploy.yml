@@ -21,20 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: qa-dojo
-
-      - name: Build
-        run: npm run build
-        working-directory: qa-dojo
-        # Se o projeto for estático (sem build), comente a linha acima
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
