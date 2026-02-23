@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QA Dojo - Acesso</title>
-    <link rel="stylesheet" href="../qa-dojo/qa-dojo/frontend/style.css">
-    <link rel="stylesheet" href="../qa-dojo/qa-dojo/frontend/login.css">
+    <link rel="stylesheet" href="qa-dojo/frontend/style.css">
+    <link rel="stylesheet" href="qa-dojo/frontend/login.css">
 </head>
 <body>
     <div class="container">
@@ -41,7 +41,7 @@
     <script>
         // Se já estiver logado, redireciona para o dashboard
         if (localStorage.getItem('token')) {
-            window.location.href = '../qa-dojo/qa-dojo/frontend/dashboard.html';
+            window.location.href = 'qa-dojo/frontend/dashboard.html';
         }
 
         async function doLogin() {
@@ -123,7 +123,7 @@
                 if (user) {
                     localStorage.setItem('token', user.token);
                     localStorage.setItem('user', user.name);
-                    window.location.href = '../qa-dojo/qa-dojo/frontend/dashboard.html';
+                    window.location.href = 'qa-dojo/frontend/dashboard.html';
                 } else {
                     errorMsg.innerText = "Login inválido.";
                     errorMsg.style.display = 'block';
