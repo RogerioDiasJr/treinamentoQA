@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Indique a pasta de saída do build (ex: 'dist', 'build' ou '.')
-          path: './qa-dojo'
+          path: './frontend'
 
   deploy:
     environment:
