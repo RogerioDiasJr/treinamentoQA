@@ -1,0 +1,41 @@
+/* Estilos base do Dashboard */
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+.user-info { font-weight: bold; color: #3498db; margin-right: 15px; font-size: 1.1rem; }
+.logout-btn { background: #e74c3c; font-size: 0.9rem; padding: 8px 15px; }
+
+.section-title {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    color: #8e44ad;
+    border-bottom: 2px solid #8e44ad;
+    padding-bottom: 5px;
+    font-size: 1.4rem;
+}
+
+.dashboard-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Ajustes para Mobile (telas até 768px) */
+@media (max-width: 768px) {
+    .dashboard-header { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 10px; 
+    }
+    .dashboard-header div { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+
+    .dashboard-options {
+        flex-direction: column; /* Empilha as opções uma embaixo da outra */
+        align-items: stretch;   /* Estica os itens para ocupar a largura */
+        gap: 20px;              /* Espaçamento claro entre as opções */
+    }
+
+    .dashboard-card {
+        padding: 15px;
+        text-align: center;
+    }
+}

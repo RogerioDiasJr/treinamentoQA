@@ -3,6 +3,8 @@ const { expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
 
 Given('que estou na página de login', async function () {
+    // Ajusta a resolução para Mobile (375x812) para validar o layout responsivo
+    await this.page.setViewportSize({ width: 375, height: 812 });
     // Instancia o Page Object usando a page injetada pelo hooks.js
     this.loginPage = new LoginPage(this.page);
     await this.loginPage.navigate();

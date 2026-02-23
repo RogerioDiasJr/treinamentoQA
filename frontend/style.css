@@ -22,11 +22,6 @@ tr:hover .delete-btn { opacity: 1; }
 .login-header { text-align: center; margin-bottom: 1.5rem; }
 .login-header h2 { margin: 0; color: #3498db; }
 
-/* Header do Dashboard */
-.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-.user-info { font-weight: bold; color: #555; }
-.logout-btn { background: #e74c3c; font-size: 0.9rem; padding: 8px 15px; }
-
 /* Estilos para a Loja (Products) */
 .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
 .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
@@ -100,16 +95,6 @@ tr:hover .delete-btn { opacity: 1; }
 /* Dropdowns */
 .dropdown-group { margin-bottom: 15px; }
 .dropdown-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-
-/* Separador no Dashboard */
-.section-title {
-    margin-top: 40px;
-    margin-bottom: 15px;
-    color: #8e44ad;
-    border-bottom: 2px solid #8e44ad;
-    padding-bottom: 5px;
-    font-size: 1.4rem;
-}
 
 /* --- Estilos para Desafios Intermediários --- */
 
