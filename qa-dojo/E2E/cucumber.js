@@ -5,5 +5,5 @@ const common = `
   `;
 
 module.exports = {
-  default: `${common}`
+  default: `${common} test/features/**/*.feature`
 };

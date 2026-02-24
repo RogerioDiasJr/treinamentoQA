@@ -48,6 +48,16 @@ class UploadPage {
             throw new Error(`Erro ao validar mensagem de sucesso: ${error.message}`);
         }
     }
+
+    async validarBotaoDesabilitado() {
+        try {
+            await expect(page.locator('//button[@id="upload-btn"]')).toBeDisabled();
+        }catch (error) {
+            throw new Error(`Erro ao validar botão: ${error.message}`);
+        }
+
+    }
+
 }
 
 module.exports = { UploadPage };
