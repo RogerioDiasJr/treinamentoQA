@@ -1,69 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><title>Desafio 7: Upload</title><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Desafio 7: Upload de Arquivos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <div class="container">
-        <h1>Upload de Arquivos</h1>
+        <h1>📂 Upload de Arquivos</h1>
+        
         <div class="info-box">
-            <h4>🎯 Objetivo: Manipulação de Input File</h4>
-            <p>Envie um arquivo (.pdf, .jpg, .png). O input muitas vezes é oculto ou difícil de clicar.</p>
+            <h4>🎯 Objetivo: Validação de Arquivo</h4>
+            <p>Selecione um arquivo (imagem ou PDF) para enviar. O sistema deve validar o formato antes do envio.</p>
         </div>
 
-        <div class="upload-area">
-            <input type="file" id="file-input" accept=".pdf, .jpg, .png">
-            <p id="file-name-display" style="margin-top: 10px; color: #555; font-style: italic;"></p>
+        <div class="upload-area" id="drop-zone">
+            <p>Arraste um arquivo aqui ou clique para selecionar</p>
+            <input type="file" id="file-input" hidden>
+            <button onclick="document.getElementById('file-input').click()" style="background: #3498db;">Selecionar Arquivo</button>
         </div>
-
-        <button id="upload-btn" onclick="startUpload()" disabled>Enviar Arquivo</button>
+        
+        <div id="file-info" style="margin-top: 10px; font-weight: bold; min-height: 20px;"></div>
 
         <div class="progress-container" id="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
-        <p id="upload-status" style="margin-top: 10px; font-weight: bold;"></p>
 
-        <br><a href="dashboard.html">Voltar ao Dashboard</a>
+        <button id="upload-btn" onclick="startUpload()" disabled style="margin-top: 20px;">Enviar Arquivo</button>
+
+        <br><br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <!-- Modal de Alerta -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title">Título</h3>
+            <p id="modal-msg">Mensagem</p>
+            <button onclick="closeModal()">OK</button>
+        </div>
     </div>
 
     <script>
         if (!localStorage.getItem('token')) window.location.href = 'index.html';
 
+        const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');
         const uploadBtn = document.getElementById('upload-btn');
-        const fileNameDisplay = document.getElementById('file-name-display');
+        const fileInfo = document.getElementById('file-info');
+        let selectedFile = null;
 
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const validExtensions = ['pdf', 'jpg', 'png'];
-                const extension = file.name.split('.').pop().toLowerCase();
-                
-                if (!validExtensions.includes(extension)) {
-                    alert("Formato de arquivo inválido! Apenas PDF, JPG ou PNG.");
-                    this.value = ''; // Limpa input
-                    uploadBtn.disabled = true;
-                    fileNameDisplay.innerText = '';
-                } else {
-                    uploadBtn.disabled = false;
-                    fileNameDisplay.innerText = `Selecionado: ${file.name}`;
-                }
-            }
+        // Eventos de Drag & Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#3498db';
         });
 
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#bdc3c7';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#bdc3c7';
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file) return;
+
+            // Validação de formato (Lógica solicitada)
+            const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+            
+            if (!validTypes.includes(file.type)) {
+                showModal('Erro', 'Formato de arquivo inválido! Por favor, envie apenas JPG, PNG ou PDF.', false);
+                fileInput.value = ''; // Limpa o input
+                selectedFile = null;
+                fileInfo.innerText = '';
+                uploadBtn.disabled = true;
+                return;
+            }
+
+            selectedFile = file;
+            fileInfo.innerText = `Arquivo selecionado: ${file.name}`;
+            uploadBtn.disabled = false;
+        }
+
         function startUpload() {
+            if (!selectedFile) return;
+
             const progressBar = document.getElementById('progress-bar');
-            const container = document.getElementById('progress-container');
-            container.style.display = 'block';
+            const progressContainer = document.getElementById('progress-container');
+            
+            progressContainer.style.display = 'block';
             let width = 0;
+            uploadBtn.disabled = true;
+            
             const interval = setInterval(() => {
                 if (width >= 100) {
                     clearInterval(interval);
-                    document.getElementById('upload-status').innerText = `Upload concluído: ${fileInput.files[0].name}`;
-                    document.getElementById('upload-status').style.color = '#27ae60';
+                    showModal('Sucesso', 'Upload concluído com sucesso!', true);
+                    fileInfo.innerText = '';
+                    selectedFile = null;
+                    fileInput.value = '';
+                    progressContainer.style.display = 'none';
+                    progressBar.style.width = '0%';
                 } else {
-                    width += 5;
+                    width += 10;
                     progressBar.style.width = width + '%';
                 }
-            }, 100); // Simula 2 segundos (20 * 100ms)
+            }, 200);
+        }
+
+        // Funções da Modal
+        function showModal(title, message, isSuccess) {
+            const titleElem = document.getElementById('modal-title');
+            titleElem.innerText = title;
+            titleElem.style.color = isSuccess ? '#27ae60' : '#e74c3c';
+            document.getElementById('modal-msg').innerText = message;
+            document.getElementById('custom-modal').style.display = 'block';
+        }
+        function closeModal() { document.getElementById('custom-modal').style.display = 'none'; }
+        
+        window.onclick = function(event) { 
+            if (event.target == document.getElementById('custom-modal')) closeModal();
         }
     </script>
-</body></html>
+</body>
+</html>

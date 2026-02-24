@@ -35,3 +35,8 @@ When('eu clico no botão de upload', async function () {
 Then('devo ver a mensagem de sucesso contendo {string}', async function (nomeArquivo) {
     await this.uploadPage.validarMensagemSucesso(nomeArquivo);
 });
+
+Then('o botao de upload deve estar desabilitado', async function () {
+    await this.uploadPage.validarBotaoDesabilitado();
+});
+
