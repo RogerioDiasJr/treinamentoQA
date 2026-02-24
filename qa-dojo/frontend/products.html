@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><title>Desafio 2: Sincronização</title><link rel="stylesheet" href="style.css"></head>
 <body>
@@ -56,6 +56,14 @@
             window.location.href = 'index.html';
         }
 
+        // Dados mockados para versão estática
+        let productsData = [
+            { name: 'Notebook Gamer', price: 4500, stock: 5 },
+            { name: 'Mouse Sem Fio', price: 150, stock: 0 },
+            { name: 'Teclado Mecânico', price: 350, stock: 12 },
+            { name: 'Monitor UltraWide', price: 1200, stock: 3 }
+        ];
+
         async function loadProducts() {
             const grid = document.getElementById('product-grid');
             const loader = document.getElementById('loader');
@@ -65,8 +73,14 @@
             loader.style.display = 'block'; // Mostra spinner
 
             try {
-                const response = await fetch('http://localhost:3000/api/products?delay=3000');
-                const products = await response.json();
+                // Simula atraso de 3 segundos (API lenta)
+                await new Promise(resolve => setTimeout(resolve, 3000));
+
+                // const response = await fetch('http://localhost:3000/api/products?delay=3000');
+                // const products = await response.json();
+                
+                // Carrega dados estáticos
+                const products = productsData;
                 
                 loader.style.display = 'none'; // Esconde spinner
 
@@ -101,11 +115,15 @@
             }
 
             try {
-                const response = await fetch('http://localhost:3000/api/products', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, price, stock })
-                });
+                // const response = await fetch('http://localhost:3000/api/products', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ name, price, stock })
+                // });
+
+                // Simula adição no "banco" estático
+                productsData.push({ name, price, stock });
+                const response = { ok: true }; // Simula resposta de sucesso
 
                 if (response.ok) {
                     closeFormModal(); // Fecha o formulário antes de mostrar o sucesso

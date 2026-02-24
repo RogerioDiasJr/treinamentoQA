@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Desafio 14: Busca Global</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .result-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .result-meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔎 Busca de Artigos</h1>
+        
+        <div class="info-box">
+            <h4>🎯 Objetivo: Validação de Busca</h4>
+            <p>Digite um termo (ex: "teste", "bug", "agile") e valide os resultados. O sistema simula uma busca no servidor com delay.</p>
+            <small>Dica: Valide se o texto pesquisado está presente nos resultados retornados e trate o caso de "Nenhum resultado".</small>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" id="search-input" class="search-input" placeholder="O que você procura hoje?">
+            <button onclick="performSearch()" style="background: #2c3e50;">Pesquisar</button>
+        </div>
+
+        <!-- Feedback Visual -->
+        <div id="loader" class="loader"></div>
+        
+        <!-- Lista de Resultados -->
+        <div id="results-container"></div>
+
+        <br><br><a href="dashboard.html">Voltar ao Dashboard</a>
+    </div>
+
+    <script>
+        // Proteção de Rota
+        if (!localStorage.getItem('token')) window.location.href = 'index.html';
+
+        // Base de Conhecimento Mockada
+        const articlesDB = [
+            { title: "Introdução ao Teste de Software", category: "Fundamentos", snippet: "Aprenda os conceitos básicos de QA e tipos de teste." },
+            { title: "Estratégias de Agile Testing", category: "Metodologia", snippet: "Como integrar QA em times Scrum e Kanban de forma eficiente." },
+            { title: "Automação com Selenium WebDriver", category: "Automação", snippet: "Guia completo para iniciar com Selenium e Java/C#." },
+            { title: "Cypress vs Playwright", category: "Ferramentas", snippet: "Um comparativo detalhado entre as ferramentas modernas de E2E." },
+            { title: "Ciclo de Vida do Bug", category: "Processos", snippet: "Entenda os estados de um defeito: New, Assigned, Fixed, Closed." },
+            { title: "Testes de API REST", category: "Backend", snippet: "Validando status codes, headers e contratos JSON." },
+            { title: "Performance com JMeter", category: "Performance", snippet: "Simulando carga e estresse em aplicações web." }
+        ];
+
+        async function performSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const container = document.getElementById('results-container');
+            const loader = document.getElementById('loader');
+
+            // Limpa resultados anteriores
+            container.innerHTML = '';
+            
+            if (!query.trim()) {
+                alert("Por favor, digite um termo para buscar.");
+                return;
+            }
+
+            loader.style.display = 'block';
+
+            // Simula delay de rede (1.5 segundos)
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Filtragem local
+            const results = articlesDB.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.snippet.toLowerCase().includes(query)
+            );
+
+            loader.style.display = 'none';
+
+            if (results.length === 0) {
+                container.innerHTML = '<p>Nenhum resultado encontrado para sua busca.</p>';
+            } else {
+                results.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerHTML = `
+                        <h3>${item.title}</h3>
+                        <p class="result-meta">Categoria: ${item.category}</p>
+                        <p>${item.snippet}</p>
+                        <a href="https://www.google.com/search?q=${encodeURIComponent(item.title)}" target="_blank" style="color: #3498db; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px;">Ver mais no Google &rarr;</a>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

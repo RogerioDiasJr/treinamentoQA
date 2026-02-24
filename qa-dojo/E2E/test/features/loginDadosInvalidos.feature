@@ -13,8 +13,8 @@ Feature: Autenticação no QA Dojo
 
     Examples:
       | email                | senha       | mensagem                  |
-      | usuario@invalido.com | senhaerrada | Credenciais inválidas     |
-      | student@qadojo.com   | errado123   | Credenciais inválidas     |
+      | usuario@invalido.com | senhaerrada | Login inválido.           |
+      | student@qadojo.com   | errado123   | Login inválido.           |
       |                      |             | Preencha todos os campos. |
       | student@qadojo.com   |             | Preencha todos os campos. |
       |                      | 123456      | Preencha todos os campos. |

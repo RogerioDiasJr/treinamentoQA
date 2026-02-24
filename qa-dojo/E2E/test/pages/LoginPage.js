@@ -9,7 +9,7 @@ class LoginPage {
 
     async navigate() {
         try{
-            await page.goto('http://localhost:3000/');
+            await page.goto('https://rogeriodiasjr.github.io/treinamentoQA/index.html');
         }
         catch(error){
             throw new Error(`Erro ao navegar para a página de login: ${error.message}`);

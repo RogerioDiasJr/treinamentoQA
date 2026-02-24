@@ -4,112 +4,59 @@ Bem-vindo ao **QA Dojo**, um ambiente de treinamento projetado intencionalmente 
 
 Diferente de aplicações de teste comuns que seguem apenas o "caminho feliz", o QA Dojo implementa padrões complexos de desenvolvimento web para testar suas habilidades de automação, estratégia de seletores e sincronização.
 
+**Versão Estática:** Este projeto foi refatorado para rodar inteiramente no navegador (Client-side), simulando comportamentos de backend (APIs lentas, validações) através de mocks e JavaScript, facilitando a hospedagem em serviços como GitHub Pages.
+
 ---
 
 ## 🚀 Funcionalidades e Desafios
 
-A aplicação consiste em um Dashboard protegido por login e diversos módulos de desafio:
+A aplicação consiste em um Dashboard protegido por login e diversos módulos de desafio divididos por faixas de dificuldade:
 
-1.  **🔐 Login & Autenticação:**
-    *   Landing Page com validação de token JWT (simulado).
-    *   Desafio de **IDs Dinâmicos**: Campos onde o atributo `id` muda a cada refresh.
-2.  **🛒 Loja Assíncrona (Sincronização):**
-    *   Simulação de API lenta (delay de 3s).
-    *   Elementos que aparecem tardiamente (Loaders/Spinners).
-    *   Necessidade de uso de **Explicit Waits**.
-3.  **🖼️ Labirinto de Contextos:**
-    *   Manipulação de **iFrames**.
-    *   Interação com múltiplas abas/janelas (`target="_blank"`).
-4.  **📊 Tabela do Caos:**
-    *   Web Tables dinâmicas.
-    *   Elementos que só aparecem com **Hover** (mouse over).
-    *   Confirmação nativa do navegador (`alert`/`confirm`).
-5.  **👻 Reino das Sombras:**
-    *   Elementos encapsulados em **Shadow DOM** (Open mode).
-    *   Isolamento de estilos e seletores.
+### Faixa Branca (Iniciante)
+1.  **🔐 Login & Autenticação:** Validação de credenciais mockadas e proteção de rotas via LocalStorage.
+2.  **🛒 Loja Assíncrona (Sincronização):** Simulação de API lenta (delay de 3s) e carregamento dinâmico de elementos (Waits).
+3.  **🖼️ Labirinto de Contextos:** Manipulação de **iFrames** e múltiplas abas.
+4.  **📊 Tabela do Caos:** Web Tables dinâmicas e validações complexas.
+5.  **👻 Reino das Sombras:** Elementos encapsulados em **Shadow DOM**.
+
+### Faixa Marrom (Intermediário)
+6.  **🖱️ Drag & Drop:** Interações de arrastar e soltar elementos.
+7.  **📂 Upload de Arquivos:** Automação de seleção de arquivos locais.
+8.  **📅 Date Picker:** Manipulação de calendários e datas.
+9.  **🔽 Menus em Cascata:** Interação com Dropdowns e Selects dependentes.
+10. **🎚️ Slider Control:** Controle de inputs do tipo Range.
+11. **🍞 Toast Notifications:** Validação de mensagens flutuantes temporárias.
+12. **🎨 Canvas Drawing:** Automação de interações em elementos Canvas HTML5.
+13. **📜 Infinite Scroll:** Carregamento de conteúdo sob demanda ao rolar a página.
+14. **🔎 Busca Global:** Validação de mecanismos de busca, filtros e links externos dinâmicos.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 *   **Frontend:** HTML5, CSS3, JavaScript (Vanilla).
-*   **Backend:** Node.js, Express.
-*   **Banco de Dados:** SQLite (Arquivo local `qa-dojo.sqlite`).
-*   **Automação E2E:**
-    *   Playwright - Framework de automação.
-    *   Cucumber JS - BDD (Behavior Driven Development).
-    *   Allure Reports - Relatórios de execução.
+*   **Simulação de Backend:** Mocks em JS, Promises para delays, LocalStorage para persistência.
+*   **Automação Sugerida:** Playwright, Cypress, Selenium ou Robot Framework.
 
 ---
 
-## ⚙️ Pré-requisitos
+## 📦 Como Executar
 
-*   Node.js (Versão 16 ou superior).
-*   NPM (Gerenciador de pacotes incluído no Node).
-*   Java (Opcional, apenas se for gerar o relatório Allure localmente via linha de comando, embora a extensão do VS Code dispense isso).
+Não é mais necessário instalar dependências de backend (Node.js) para rodar a aplicação alvo, pois ela foi adaptada para funcionar estaticamente.
 
----
-
-## 📦 Instalação e Execução
-
-### 1. Configurando a Aplicação (Backend + Frontend)
-
-A API serve tanto os endpoints quanto os arquivos estáticos do frontend.
-
-```bash
-# Acesse a pasta da API
-cd qa-dojo-api
-
-# Instale as dependências
-npm install
-
-# Inicie o servidor
-node server.js
-```
-
-> A aplicação estará rodando em: **http://localhost:3000**
-
-### 2. Configurando os Testes Automatizados (E2E)
-
-Em um novo terminal, configure o projeto de testes.
-
-```bash
-# Acesse a pasta de testes
-cd E2E
-
-# Instale as dependências do Playwright e Cucumber
-npm install
-
-# Instale os navegadores do Playwright (se necessário)
-npx playwright install
-```
-
----
-
-## 🧪 Executando os Testes
-
-Os testes utilizam Cucumber com Gherkin. Para rodar a suíte completa:
-
-```bash
-# Dentro da pasta E2E
-npm test
-```
-
-Este comando executará os cenários definidos em `features/` e gerará os resultados na pasta `allure-results`.
-
-### Visualizando o Relatório
-
-Para ver o relatório gráfico da execução:
-
-```bash
-npx allure serve allure-results
-```
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/seu-usuario/qa-dojo.git
+    ```
+2.  **Abra o arquivo principal:**
+    *   Navegue até a pasta do projeto e abra o arquivo `index.html` no seu navegador preferido.
+    *   Ou utilize uma extensão como "Live Server" no VS Code para evitar problemas de CORS com arquivos locais.
 
 ---
 
 ## 🔑 Credenciais de Acesso
 
-Para acessar o Dashboard e os desafios, utilize os usuários pré-cadastrados no banco de dados:
+Para acessar o Dashboard e os desafios, utilize os usuários simulados:
 
 | Perfil | Email | Senha |
 | :--- | :--- | :--- |
@@ -123,21 +70,14 @@ Para acessar o Dashboard e os desafios, utilize os usuários pré-cadastrados no
 ```text
 qa-dojo/
 │
-├── index.html           # Landing Page e Login Principal
-├── dashboard.html       # Menu principal (Área logada)
-├── *.html               # Páginas dos desafios (login, products, frames, etc)
-│
-├── qa-dojo-api/         # Backend
-│   ├── server.js        # Servidor Express
-│   ├── database.js      # Configuração SQLite
-│   └── data/            # Arquivo do banco de dados
-│
-└── E2E/                 # Projeto de Automação
-    ├── features/        # Arquivos .feature (Gherkin)
-    │   ├── steps/       # Definição dos passos (Step Definitions)
-    │   └── support/     # Hooks e configurações globais
-    ├── pages/           # Page Objects (Mapeamento de elementos)
-    └── cucumber.js      # Configuração do Runner
+├── index.html           # Login Principal
+├── qa-dojo/
+│   └── frontend/        # Páginas dos desafios e estilos
+│       ├── dashboard.html
+│       ├── products.html
+│       ├── search.html
+│       └── ...
+└── README.md            # Documentação
 ```
 
 ---

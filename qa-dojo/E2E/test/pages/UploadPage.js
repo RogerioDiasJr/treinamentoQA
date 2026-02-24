@@ -7,7 +7,7 @@ class UploadPage {
 
     async navigate() {
         try {
-            await page.goto('http://localhost:3000/upload.html');
+            await page.goto('https://rogeriodiasjr.github.io/treinamentoQA/qa-dojo/frontend/upload.html');
         } catch (error) {
             throw new Error(`Erro ao navegar para a página de upload: ${error.message}`);
         }
@@ -15,7 +15,7 @@ class UploadPage {
 
     async selecionarArquivo(nomeArquivo) {
         try {
-           await page.locator('//input[@id="file-input"]').setInputFiles('../E2E/features/fixtures/test.pdf')
+           await page.locator('//input[@id="file-input"]').setInputFiles('../E2E/test/fixtures/test.pdf')
         } catch (error) {
             throw new Error(`Erro ao selecionar arquivo: ${error.message}`);
         }

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js --parallel 1 -f json:tmp/report.json && node report.js",
+    "test": "cucumber-js test/features/*.feature --parallel 1 -f json:tmp/report.json && node report.js",
+    "test:feature": "cucumber-js --parallel 1 -f json:tmp/report.json",
     "start": "mkdir tmp && npm install package.json --save-dev"
   },
   "keywords": [],
